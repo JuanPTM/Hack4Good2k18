@@ -4,5 +4,12 @@ services:
   API:
     build:
       context: ./API
-      
+    ports:
+     - "80:5000"
+    links:
+     - mongoDB
+     - mariaDB
+     - rabbitMQ
+  mongoDB:
+    
     
