@@ -1,6 +1,7 @@
 use data;
 db.createCollection('geofence')
 db.geofence.insert({
+  alias: "Prueba",
   device_id: 1,
   init_time: ISODate("2013-10-10T23:06:00.000Z"),
   end_time: ISODate("2013-10-10T23:06:00.000Z"),
