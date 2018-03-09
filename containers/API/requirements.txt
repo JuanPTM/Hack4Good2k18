@@ -1,0 +1,5 @@
+Flask
+pymongo
+pika
+MySQL-python
+mysql-connector-python-rf
