@@ -1,0 +1,13 @@
+use data;
+db.createCollection('geofence')
+db.geofence.insert({
+  device_id: 1,
+  init_time: ISODate("2013-10-10T23:06:00.000Z"),
+  end_time: ISODate("2013-10-10T23:06:00.000Z"),
+  loc: {
+    type: "Polygon",
+    coordinates: [ [ [ 0 , 0 ] , [ 0 , 5 ] , [ 5 , 5 ] , [ 5 , 5 ] , [ 0 , 0  ] ] ]
+  }
+})
+db.geofence.createIndex({loc:"2dsphere"});
+db.geofence.createIndex({device_id: 1});
