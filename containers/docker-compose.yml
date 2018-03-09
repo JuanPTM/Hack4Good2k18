@@ -1,36 +1,36 @@
 version: '2'
 
 services:
-  API:
+  api:
     build:
       context: ./API
-    container_name: API_H4G
+    container_name: api_h4g
     ports:
      - "80:5000"
     links:
-     - mongoDB
-     - mariaDB
-     - rabbitMQ
+     - mongo
+     - maria
+     - rabbit
     restart: always
 
-  mongoDB:
-    image: mongo:latest # custom ?
-    container_name: mongo_H4G
+  mongo:
+    image: mongo:latest 
+    container_name: mongo_h4g
     volumes:
      - mongo-data:/data/db
     environment:
       - MONGODB_ROOT_PASSWORD=hack4f00d
-      - MONGO_INITDB_ROOT_USERNAME=root
     restart: always  
 
-  mariaDB:
-    image: ./mariaDB 
+  maria:
+    build:
+      context: ./mariaDB 
     container_name: sql_H4G
     restart: always
     volumes:
      - sql-data:/var/lib/mysql
 
-  rabbitMQ:
+  rabbit:
     image: rabbitmq:3-management
     container_name: MQTT_H4G
     environment:
@@ -41,10 +41,10 @@ services:
      - "15672:15672"
      - "5672:5672"
     volumes:
-     - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
+     - rabbit-data:/etc/rabbitmq
 
 
 volumes:
   mongo-data:
   sql-data:
-    
+  rabbit-data:    
