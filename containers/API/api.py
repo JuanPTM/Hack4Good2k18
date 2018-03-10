@@ -3,6 +3,7 @@ from flask import Flask
 import pika # RabbitMQ connector
 import mysql.connector as mariadb # MariaDB connector
 from pymongo import MongoClient
+import MySQLdb
 
 
 # mariadb_connection = mariadb.connect(user='python_user', password='some_pass', database='employees') # CONNECT TO DB
