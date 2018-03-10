@@ -1,5 +1,5 @@
 use data;
-db.createCollection('geofence');
+db.createCollection('geofence')
 db.geofence.insert({
   alias: "Prueba",
   device_id: 1,
@@ -9,6 +9,6 @@ db.geofence.insert({
     type: "Polygon",
     coordinates: [ [ [ 0 , 0 ] , [ 0 , 5 ] , [ 5 , 5 ] , [ 5 , 5 ] , [ 0 , 0  ] ] ]
   }
-});
+})
 db.geofence.createIndex({loc:"2dsphere"});
 db.geofence.createIndex({device_id: 1});

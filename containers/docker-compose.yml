@@ -13,7 +13,9 @@ services:
     restart: always
 
   mongo:
-    image: mongo:latest 
+#    image: mongo
+    build:
+      context: ./mongoDB 
     container_name: mongo_h4g
     volumes:
      - mongo-data:/data/db
