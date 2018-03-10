@@ -11,16 +11,16 @@ from pymongo import MongoClient
 app = Flask(__name__)
 api = Api(app)
 
-client = MongoClient('localhost', 32769)
+client = MongoClient('mongo', 27017)
 db = client.data
 
 mysql = MySQL()
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_DB'] = 'prueba'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'hack4f00d'
+app.config['MYSQL_DATABASE_DB'] = 'MZS'
+app.config['MYSQL_DATABASE_HOST'] = 'maria'
 
 mysql.init_app(app)
 
