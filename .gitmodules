@@ -1,3 +1,6 @@
 [submodule "MySafeZone"]
 	path = MySafeZone
 	url = https://github.com/dacamposol/MySafeZone
+[submodule "GpsCode"]
+	path = GpsCode
+	url = https://github.com/JuanPTM/GpsCode
