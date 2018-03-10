@@ -107,7 +107,7 @@ class Data(Resource):
 
         data = {
             'alias': _alias,
-            'device_id': device_id,
+            'device_id': int(device_id),
             'init_time': _initime,
             'end_time': _endtime,
             'loc': {
@@ -119,15 +119,37 @@ class Data(Resource):
         data2 = ast.literal_eval(json.dumps(data).replace('"compadre"', _positions))
 
         collection.insert(data2)
-        result = []
-        for data in collection.find():
-            result.append(data)
-        return json.dumps(result, default=json_util.default)
-        # TODO CONEXION A MONGO
+        # result = []
+        # for data in collection.find():
+        #     result.append(data)
+        # return json.dumps(result, default=json_util.default)
+
+    def get(self, device_id):
+        collection = db.geofence
+        print device_id
+        return json_util.dumps(list(collection.find({'device_id': int(device_id)})))
+
+
+class CheckFence(Resource):
+    def post(self, device_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('lat', type=str)
+        parser.add_argument('lon', type=str)
+        args = parser.parse_args()
+
+        _lat = args['lat']
+        _lon = args['lon']
+
+        collection = db.geofence
+        return collection.find(
+            {'device_id': int(device_id),
+             'loc': {'$geoIntersects': {
+                 '$geometry': {'type': "Point", 'coordinates': [float(_lon), float(_lat)]}}}}).count()
 
 
 api.add_resource(Device, '/device/<user_id>')
-api.add_resource(Data, '/data/<device_id>')
+api.add_resource(Data, '/fence/<device_id>')
+api.add_resource(CheckFence, '/checkfence/<device_id>')
 api.add_resource(User, '/user')
 
 if __name__ == "__main__":
