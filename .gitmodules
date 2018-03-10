@@ -1,0 +1,3 @@
+[submodule "MySafeZone"]
+	path = MySafeZone
+	url = https://github.com/dacamposol/MySafeZone
