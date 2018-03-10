@@ -1,5 +1,8 @@
 Flask
+flask_restful
+Flask-PyMongo
 pymongo
 pika
+flask-mysql
 MySQL-python
 mysql-connector-python-rf
