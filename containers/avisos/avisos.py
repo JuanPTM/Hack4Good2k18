@@ -1,11 +1,17 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
+import json
+import requests
 import paho.mqtt.client as mqtt
 
 tipoAvisos = ["Alert", "Battery", "Broken", "AlternativeRoute"]
 broker_address = "192.168.0.161"
-broker_port = 1883
+broker_port = 8080
+
+url_api = "http://192.168.0.161"
+api_port = 80
+headers = {'Content-Type': 'application/json'}
+
 
 
 clientPos = mqtt.Client("ProxyServerPOS")  # create new instance
@@ -20,12 +26,14 @@ def subs_pos_handler(client, userdata, message):
     msg = str(message.payload.decode("utf-8"))
     topic_id = message.topic.split("/")[0]
     pos = msg.split(",")
-    pos = map(float, pos)
-    # TODO PYMOOOOOOONGO
-    clientAvi.publish(topic_id + "/ad", tipoAvisos[0] + "," + "Se va.")
-    print("message received ", str(message.payload.decode("utf-8")))
+    pos = list(map(float, pos))
+
+    num_fences = checkfence(topic_id,pos[0],pos[1])
+    if num_fences is 0:
+        clientAvi.publish(topic_id + "/ad", tipoAvisos[0] + "," + "Se va.")
+    """    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
-    print("\n")
+    print("\n")"""
 
 
 # CALLBACK BATTERY
@@ -42,9 +50,9 @@ def subs_bat_handler(client, userdata, message):
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "50")
     elif bat < 25.:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "25")
-    print("message received ", str(message.payload.decode("utf-8")))
+    """    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
-    print("\n")
+    print("\n")"""
 
 # CALLBACK BROKEN
 def subs_broken_handler(client,userdata,message):
@@ -54,9 +62,9 @@ def subs_broken_handler(client,userdata,message):
     broken = int(broken[0]);
     if broken is 1:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[3] + "," + "SE HA ROTO LA PULSERA")
-    print("message received ", str(message.payload.decode("utf-8")))
+    """    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
-    print("\n")
+    print("\n")"""
 
 # CALLBACK DATABASE
 def subs_db_handler(client,userdata,message):
@@ -64,11 +72,23 @@ def subs_db_handler(client,userdata,message):
     topic_id = message.topic.split("/")[0]
     dev_id = msg.split(",")
     clientPos.subscribe(dev_id[0]+"/pos")
-    clientBroken.subscribe(dev_id[0] + "/bat")
-    clientBat.subscribe(dev_id[0] + "/brok")
-    print("message received ", str(message.payload.decode("utf-8")))
+    clientBroken.subscribe(dev_id[0] + "/brok")
+    clientBat.subscribe(dev_id[0] + "/bat")
+    """    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
-    print("\n")
+    print("\n")"""
+
+def checkfence(device_id,lat,lon):
+    api_url = '{0}:{2}/checkfence/{1}'.format(url_api,device_id,api_port)
+ #   print(api_url)
+    params= {'lat':lat,'lon':lon}
+    params = json.dumps(params).encode('utf8')
+    response = requests.post(api_url,data=params, headers=headers)
+
+    if response.status_code == 200:
+        return json.loads(response.content.decode('utf-8'))
+    else:
+        return None
 
 
 
