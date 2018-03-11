@@ -71,9 +71,14 @@ def subs_db_handler(client,userdata,message):
     msg = str(message.payload.decode("utf-8"))
     topic_id = message.topic.split("/")[0]
     dev_id = msg.split(",")
-    clientPos.subscribe(dev_id[0]+"/pos")
-    clientBroken.subscribe(dev_id[0] + "/brok")
-    clientBat.subscribe(dev_id[0] + "/bat")
+    if dev_id[1] is "up":
+        clientPos.subscribe(dev_id[0]+"/pos")
+        clientBroken.subscribe(dev_id[0] + "/brok")
+        clientBat.subscribe(dev_id[0] + "/bat")
+    elif dev_id[1] is "down":
+        clientPos.unsubscribe(dev_id[0]+"/pos")
+        clientBroken.unsubscribe(dev_id[0] + "/brok")
+        clientBat.unsubscribe(dev_id[0] + "/bat")
     """    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
     print("\n")"""
