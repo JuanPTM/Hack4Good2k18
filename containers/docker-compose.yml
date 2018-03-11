@@ -47,6 +47,9 @@ services:
       context: ./avisos
     container_name: avisos_msz
     restart: always
+    links:
+     - api
+     - mosquitto
     
 
 volumes:
