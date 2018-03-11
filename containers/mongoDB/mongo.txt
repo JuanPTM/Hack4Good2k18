@@ -2,7 +2,7 @@ use data;
 db.createCollection('geofence');
 db.geofence.insert({
   alias: "Prueba",
-  device_id: 1,
+  device_id: 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b,
   init_time: ISODate("2013-10-10T23:06:00.000Z"),
   end_time: ISODate("2013-10-10T23:06:00.000Z"),
   loc: {
