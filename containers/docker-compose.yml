@@ -32,12 +32,25 @@ services:
      - sql-data:/var/lib/mysql
 
   mosquitto:
-    image: ansi/mosquitto
-    container_name: MQTT_H4G
+    image: eclipse-mosquitto
+    container_name: mqtt_msz
     restart: always
     ports:
      - "8080:1883"
+     - "9001:9001"
+    volumes:
+     - mqtt-data:/mosquitto/data
+#     - mqtt-logs:/mosquitto/logs
+
+  avisos:
+    build:
+      context: ./avisos
+    container_name: avisos_msz
+    restart: always
+    
 
 volumes:
   mongo-data:
   sql-data:
+  mqtt-data:
+#  mqtt-logs:
