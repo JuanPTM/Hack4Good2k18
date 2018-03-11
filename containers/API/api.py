@@ -142,7 +142,7 @@ class CheckFence(Resource):
 
         collection = db.geofence
         return collection.find(
-            {'device_id': int(device_id),
+            {'device_id': device_id,
              'loc': {'$geoIntersects': {
                  '$geometry': {'type': "Point", 'coordinates': [float(_lon), float(_lat)]}}}}).count()
 
