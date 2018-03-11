@@ -1,5 +1,5 @@
 FROM mariadb
-MAINTAINER Juan Pedro Torres "jutorresm@gmail.com"
+MAINTAINER Juan Pedro Torres "juanp.95.torres@gmail.com"
 ENV MYSQL_ROOT_PASSWORD hack4f00d
 ENV MYSQL_DATABASE=MSZ
 ADD trigger.py /trigger.py

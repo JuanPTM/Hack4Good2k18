@@ -107,5 +107,6 @@ for clt in clients:
     clt.connect(broker_address, port=broker_port)  # connect to broker
     clt.loop_start()  # start the loop
 clientDB.subscribe("dbNotification")
+
 while True:
     pass
