@@ -29,9 +29,9 @@ def subs_pos_handler(client, userdata, message):
     pos = list(map(float, pos))
 
     num_fences = checkfence(topic_id,pos[0],pos[1])
-    if num_fences is 0:
+    if num_fences == 0:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[0] + "," + "Se va.")
-    """    print("message received ", str(message.payload.decode("utf-8")))
+"""    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
     print("\n")"""
 
@@ -44,13 +44,13 @@ def subs_bat_handler(client, userdata, message):
     bat = float(bat[0])
     if bat > 75.:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "100")
-    elif bat > 50:
+    elif bat > 50.:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "75")
-    elif bat > 25:
+    elif bat > 25.:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "50")
-    elif bat < 25.:
+    elif bat <= 25.:
         clientAvi.publish(topic_id + "/ad", tipoAvisos[1] + "," + "25")
-    """    print("message received ", str(message.payload.decode("utf-8")))
+"""    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
     print("\n")"""
 
@@ -60,9 +60,9 @@ def subs_broken_handler(client,userdata,message):
     topic_id = message.topic.split("/")[0]
     broken = msg.split(",")
     broken = int(broken[0]);
-    if broken is 1:
-        clientAvi.publish(topic_id + "/ad", tipoAvisos[3] + "," + "SE HA ROTO LA PULSERA")
-    """    print("message received ", str(message.payload.decode("utf-8")))
+    if broken == 1:
+        clientAvi.publish(topic_id + "/ad", tipoAvisos[2] + "," + "SE HA ROTO LA PULSERA")
+"""    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
     print("\n")"""
 
@@ -71,15 +71,16 @@ def subs_db_handler(client,userdata,message):
     msg = str(message.payload.decode("utf-8"))
     topic_id = message.topic.split("/")[0]
     dev_id = msg.split(",")
-    if dev_id[1] is "up":
+#    print(dev_id)
+    if str(dev_id[1]) == "up":
         clientPos.subscribe(dev_id[0]+"/pos")
         clientBroken.subscribe(dev_id[0] + "/brok")
         clientBat.subscribe(dev_id[0] + "/bat")
-    elif dev_id[1] is "down":
+    elif dev_id[1] == "down":
         clientPos.unsubscribe(dev_id[0]+"/pos")
         clientBroken.unsubscribe(dev_id[0] + "/brok")
         clientBat.unsubscribe(dev_id[0] + "/bat")
-    """    print("message received ", str(message.payload.decode("utf-8")))
+"""    print("message received ", str(message.payload.decode("utf-8")))
     print("message topic=", message.topic)
     print("\n")"""
 
