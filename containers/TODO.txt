@@ -1,6 +1,4 @@
-- DB scripts, bien hechos
-- API trigger al insertar device, sub/unsub
-- AUTH mqtt
-- mongo AUTH (?)
-- yaml mqtt config en avisos
-- API a python:alpine
+- DB scripts, bien hechos 
+- API trigger al insertar device, sub/unsub (una vez cambiada a 3.4 es easy)
+- AUTH mqtt (No hay auth en la pulsera, desactivado por ahora)
+- API a python:alpine (pablo pasandolo a a 3.4, asi que es easy)

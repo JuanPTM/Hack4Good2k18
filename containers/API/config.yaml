@@ -5,7 +5,7 @@ maria:
   dbHostname: maria
   port: 3306
 mongo:
-  user:
-  password:
+  user: root
+  password: hack4f00d
   dbHostname: mongo
   port: 27017
