@@ -7,20 +7,28 @@ from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse
 from flaskext.mysql import MySQL
 from pymongo import MongoClient
+import yaml
 
 app = Flask(__name__)
 api = Api(app)
 
-client = MongoClient('mongo', 27017)
+
+
+with open("config.yaml", 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
+
+cfgMongo = cfg['mongo']
+client = MongoClient(cfgMongo['dbHostname'], 27017)
 db = client.data
 
 mysql = MySQL()
 
+cfgMaria = cfg['maria']
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'hack4f00d'
-app.config['MYSQL_DATABASE_DB'] = 'MZS'
-app.config['MYSQL_DATABASE_HOST'] = 'maria'
+app.config['MYSQL_DATABASE_USER'] = cfgMaria['user']
+app.config['MYSQL_DATABASE_PASSWORD'] = cfgMaria['password']
+app.config['MYSQL_DATABASE_DB'] = cfgMaria['dbName']
+app.config['MYSQL_DATABASE_HOST'] = cfgMaria['dbHostname']
 
 mysql.init_app(app)
 
