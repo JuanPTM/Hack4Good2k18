@@ -1,0 +1,11 @@
+maria:
+  user: root
+  password: hack4f00d
+  dbName: MSZ
+  dbHostname: maria
+  port: 3306
+mongo:
+  user:
+  password:
+  dbHostname: mongo
+  port: 27017

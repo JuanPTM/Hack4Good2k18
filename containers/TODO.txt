@@ -1,3 +1,6 @@
 - DB scripts, bien hechos
 - API trigger al insertar device, sub/unsub
 - AUTH mqtt
+- mongo AUTH
+- yaml configuracion
+- API a python:alpine
