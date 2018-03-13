@@ -2,5 +2,5 @@ api:
   hostname: api
   port: 80
 mqtt:
-  hostname: mosquitto
+  hostname: 192.168.0.161
   port: 8080
