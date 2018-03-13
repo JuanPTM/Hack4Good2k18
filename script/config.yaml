@@ -9,3 +9,9 @@ mongo:
   password:
   dbHostname: mongo
   port: 27017
+api:
+  hostname: localhost
+  port: 80
+mqtt:
+  hostname: localhost
+  port: 8080
