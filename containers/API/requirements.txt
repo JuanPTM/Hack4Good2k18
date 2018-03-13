@@ -6,3 +6,4 @@ pika
 flask-mysql
 MySQL-python
 mysql-connector-python-rf
+pyyaml
