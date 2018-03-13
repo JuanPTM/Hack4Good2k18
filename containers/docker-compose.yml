@@ -20,10 +20,10 @@ services:
     volumes:
      - mongo-data:/data/db
     environment:
-      - MONGODB_INITDB_ROOT_USERNAME=root
-      - MONGODB_INITDB_ROOT_PASSWORD=hack4f00d
+#      - MONGODB_INITDB_ROOT_USERNAME=root
+#      - MONGODB_INITDB_ROOT_PASSWORD=hack4f00d
       - MONGODB_ROOT_PASSWORD=hack4f00d
-    command: mongod
+#    command: mongod
     restart: always  
 
   maria:
