@@ -3,16 +3,24 @@
 import json
 import requests
 import paho.mqtt.client as mqtt
+import yaml
+import socket
+
+with open("config.yaml", 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
+
+cfgMqtt = cfg['mqtt'] 
+cfgApi = cfg['api']
 
 tipoAvisos = ["Alert", "Battery", "Broken", "AlternativeRoute"]
-broker_address = "192.168.0.161"
-broker_port = 8080
+broker_address = socket.gethostbyname(cfgMqtt['hostname'])
+broker_port = int(cfgMqtt['port'])
 
-url_api = "http://192.168.0.161"
-api_port = 80
+url_api = "http://{}".format(socket.gethostbyname(cfgApi['hostname']))
+api_port = int(cfgApi['port'])
 headers = {'Content-Type': 'application/json'}
 
-
+print(broker_address,url_api)
 
 clientPos = mqtt.Client("ProxyServerPOS")  # create new instance
 clientBat = mqtt.Client("ProxyServerBAT")  # create new instance
